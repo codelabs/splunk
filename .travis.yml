@@ -1,3 +1,11 @@
 language: go
 go:
+    - 1.5.4
+    - 1.6.2
     - tip
+env:
+    global:
+        - GO15VENDOREXPERIMENT=1
+notifications:
+    slack:
+        secure: Ljk8HUHarjCOSW8Sa6dWxOZlumjqVStEL4kGeQmsa7fftxl7WOSRkXHJ3ewpw3i1uhWwUzZS4qHTrLcqeJUD3f1HdTACrduVqn1fD/g0c+DDJGP554cF8Ty5JB18Xhhu+etrzGGIA0/bg1jpli1DZkL+V2t9zwVKl5xSFhZjc2/ow5VxrXen5xyhCH3Lwzd6RSKEOTsQTbFuQPjVGhImq82vmDGH1lEysSBw0W51O1tZga45VttvFXiPJ3Dbf6eqW1WAP2e9f/N9eZCcsjVVN6AINBOnu2J0QhZ238ObX2sBZgQjP80v+csHPqAOuZgzmMc2cIYycAK9w+Z3HXK+lz0s5AoCa6eNITvUUAAnq9Jf9gSY2PbCms+Y5m5BApl++kE9IdgOwZK3c4g4M7Fou0f0GDeMr+X6um5/y4J9YjKdt0nFxTtyyA7FyA5coit5kQ+oV8lAgCUCwK4ntJYaJ6I/qguUOmmEIjevoqpDndudF1KnKDyRzOvAkBAyr3Et202s3beG1U7ZIHlRgLMFiT5NCmE7rux39lufWwKdQT/WBXwkhP4U78kM2aV7PUhH1thlTof4KaFo2sQpFTv8oMV3t2n8zTDpB+V0C/yaO2lFiLsZPW0J8JxSTS46Jg/0mYfeaOWfwP0DH9h6fXfgXRCdve2Z2C/SgR8UkcAHI/U=

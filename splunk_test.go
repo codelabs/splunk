@@ -2,6 +2,19 @@ package splunk
 
 import "testing"
 
+type TestResponses map[string]string
+type TestRequest struct {
+	endpoint string
+}
+
+func (t *TestRequest) Post(url string, content string) (Response, error) {
+
+	//var responses = make(TestResponses)
+	var err error
+
+	return "", err
+}
+
 func TestGetAccount(t *testing.T) {
 	var acct = Account{"admin", "changeme"}
 	var exp = "username=admin&password=changeme"
