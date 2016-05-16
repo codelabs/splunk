@@ -1,26 +1,6 @@
 package splunk
 
-import (
-	"log"
-	"strconv"
-)
-
-// PkgLogger - Logging (Singleton) for entire package
-type PkgLogger struct {
-	*logger
-}
-
-// NewLogger - Creates singleton instance for logger
-func NewLogger() *PkgLogger {
-	var p PkgLogger
-	if p.logger == nil {
-		p.logger = &logger{
-			items: make(map[string]string),
-		}
-	}
-
-	return &p
-}
+import "strconv"
 
 // Fetcher -  fetches data from a remote end point
 type Fetcher interface {
@@ -37,7 +17,9 @@ type User struct {
 // splunk head
 func (u *User) Fetch(url string, body string) (id string, err error) {
 
-	log.Println("url=" + url + " content=" + body)
+	var logger = NewLogger()
+	logger.generate("url=" + url + " content=" + body)
+
 	var str = "Foo"
 	return str, err
 }
@@ -61,7 +43,8 @@ func (s *SessionMgr) GetSessionID() string {
 	return s.sid
 }
 
-// Connect ...
+// Connect - Connects to splunk server on provided host:port and user account
+// details and returns instance of SessionMgr on success.
 func Connect(f Fetcher, host string, port int) (*SessionMgr, error) {
 
 	var id string
@@ -69,7 +52,7 @@ func Connect(f Fetcher, host string, port int) (*SessionMgr, error) {
 	var logger = NewLogger()
 
 	// Prepare URL
-	var url = "https://" + host + ":" + strconv.Itoa(port) + "services/auth/login"
+	var url = "https://" + host + ":" + strconv.Itoa(port) + "/services/auth/login"
 	logger.generate(url)
 
 	id, err = f.Fetch(url, id)
