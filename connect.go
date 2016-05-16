@@ -5,6 +5,23 @@ import (
 	"strconv"
 )
 
+// PkgLogger - Logging (Singleton) for entire package
+type PkgLogger struct {
+	*logger
+}
+
+// NewLogger - Creates singleton instance for logger
+func NewLogger() *PkgLogger {
+	var p PkgLogger
+	if p.logger == nil {
+		p.logger = &logger{
+			items: make(map[string]string),
+		}
+	}
+
+	return &p
+}
+
 // Fetcher -  fetches data from a remote end point
 type Fetcher interface {
 	Fetch(url string, body string) (id string, err error)
@@ -25,23 +42,42 @@ func (u *User) Fetch(url string, body string) (id string, err error) {
 	return str, err
 }
 
-// Head - Constructs URL for the specified head and port
-type Head struct {
-	name string
-	port int
+// SessionMgr ...
+type SessionMgr struct {
+	host string // server name
+	port int    // port number
+	sid  string // session id
 }
 
 // GetURL - gives url for the splunk head
-func (h *Head) GetURL() string {
-	return "https://" + h.name + ":" + strconv.Itoa(h.port)
+func (s *SessionMgr) GetURL() string {
+	return "https://" + s.host + ":" + strconv.Itoa(s.port)
+}
+
+// GetSessionID - gives existing session id
+func (s *SessionMgr) GetSessionID() string {
+	var logger = NewLogger()
+	logger.generate(s.sid)
+	return s.sid
 }
 
 // Connect ...
-func Connect(f Fetcher, head Head) (string, error) {
+func Connect(f Fetcher, host string, port int) (*SessionMgr, error) {
 
 	var id string
 	var err error
+	var logger = NewLogger()
 
-	id, err = f.Fetch(head.GetURL(), id)
-	return id, err
+	// Prepare URL
+	var url = "https://" + host + ":" + strconv.Itoa(port) + "services/auth/login"
+	logger.generate(url)
+
+	id, err = f.Fetch(url, id)
+
+	var session = &SessionMgr{
+		host: host,
+		port: port,
+		sid:  id,
+	}
+	return session, err
 }

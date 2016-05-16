@@ -1,6 +1,9 @@
 package splunk
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 type testUser struct {
 	username string
@@ -12,41 +15,50 @@ func (tu *testUser) Fetch(url string, body string) (id string, err error) {
 	return str, err
 }
 
+var tu = &testUser{
+	username: "admin",
+	password: "changeme",
+}
+
+func TestConnect(t *testing.T) {
+
+	session, err := Connect(tu, "localhost", 5500)
+	if err != nil {
+		t.Error(err)
+	}
+
+	var stype = reflect.TypeOf(session)
+
+	if stype.Kind() != reflect.Ptr {
+		t.Error("Invalid type returned")
+	}
+}
+
 func TestGetURL(t *testing.T) {
 
-	var head = Head{
-		name: "localhost",
-		port: 5500,
+	session, err := Connect(tu, "localhost", 5500)
+	if err != nil {
+		t.Error(err)
 	}
+
 	var exp = "https://localhost:5500"
-	var rec = head.GetURL()
+	var rec = session.GetURL()
 
 	if rec != exp {
 		t.Error("Received=" + rec + " Expected=" + exp)
 	}
 }
 
-func TestConnect(t *testing.T) {
+func TestGetSessionID(t *testing.T) {
 
-	var tu = &testUser{
-		username: "admin",
-		password: "changeme",
-	}
-
-	var head = Head{
-		name: "localhost",
-		port: 5500,
-	}
-
-	var id string
-	var err error
-
-	id, err = Connect(tu, head)
+	session, err := Connect(tu, "localhost", 5500)
 	if err != nil {
 		t.Error(err)
 	}
 
-	if id != "Bar" {
-		t.Error("Received=" + id + " Expected=Bar")
+	var exp = "Bar"
+	var rec = session.GetSessionID()
+	if rec != exp {
+		t.Error("Received=" + rec + " Expected=" + exp)
 	}
 }
