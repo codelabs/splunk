@@ -86,11 +86,17 @@ func Connect(f Fetcher, host string, port int, user string, pass string) (*Sessi
 
 	logger.generate(data.Encode())
 
-	if id, err = f.Fetch(authurl, data.Encode()); err != nil {
-		logger.generate("error")
+	var session = &SessionMgr{
+		host: host,
+		port: port,
 	}
 
-	var session = &SessionMgr{
+	if id, err = f.Fetch(authurl, data.Encode()); err != nil {
+		logger.generate("error")
+		return session, err
+	}
+
+	session = &SessionMgr{
 		host: host,
 		port: port,
 		sid:  id,
