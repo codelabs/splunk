@@ -15,6 +15,7 @@ func (tu *testUser) Fetch(url string, body string) (id string, err error) {
 	return str, err
 }
 
+// Test User
 var tu = &testUser{
 	username: "admin",
 	password: "changeme",
