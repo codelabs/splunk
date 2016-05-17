@@ -23,7 +23,7 @@ var tu = &testUser{
 
 func TestConnect(t *testing.T) {
 
-	session, err := Connect(tu, "localhost", 5500)
+	session, err := Connect(tu, "localhost", 5500, tu.username, tu.password)
 	if err != nil {
 		t.Error(err)
 	}
@@ -37,7 +37,7 @@ func TestConnect(t *testing.T) {
 
 func TestGetURL(t *testing.T) {
 
-	session, err := Connect(tu, "localhost", 5500)
+	session, err := Connect(tu, "localhost", 5500, tu.username, tu.password)
 	if err != nil {
 		t.Error(err)
 	}
@@ -52,7 +52,7 @@ func TestGetURL(t *testing.T) {
 
 func TestGetSessionID(t *testing.T) {
 
-	session, err := Connect(tu, "localhost", 5500)
+	session, err := Connect(tu, "localhost", 5500, tu.username, tu.password)
 	if err != nil {
 		t.Error(err)
 	}
