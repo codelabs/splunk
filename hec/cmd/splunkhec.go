@@ -10,7 +10,7 @@ import (
 	"os"
 	"os/user"
 
-	"go.corp.yahoo.com/BlackHawk/go_splunk/hec"
+	"github.com/codelabs/splunk/hec"
 )
 
 // RCFilecfg - List of tokens
