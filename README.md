@@ -1,7 +1,10 @@
 # splunk
 Splunk Libraries in golang
 
-[![Build Status](https://travis-ci.org/codelabs/splunk.svg?branch=master)](https://travis-ci.org/codelabs/splunk) [![Coverage Status](https://coveralls.io/repos/github/codelabs/splunk/badge.svg?branch=master)](https://coveralls.io/github/codelabs/splunk?branch=master)
+* Travis Build: [![Build Status](https://travis-ci.org/codelabs/splunk.svg?branch=master)](https://travis-ci.org/codelabs/splunk)
+* Drone Build: [![Build Status](https://drone.io/github.com/codelabs/splunk/status.png)](https://drone.io/github.com/codelabs/splunk/latest)
+* [![Coverage Status](https://coveralls.io/repos/github/codelabs/splunk/badge.svg?branch=master)](https://coveralls.io/github/codelabs/splunk)
+
 
 ```{go}
 package main
