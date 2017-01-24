@@ -16,3 +16,6 @@ script:
     - go test -v -covermode=count -coverprofile=coverage.out
     - go test ./hec -v -covermode=count -coverprofile=coverage.out
     - "$HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci"
+addons:
+    code_climate:
+        repo_token: 4518c965dbd2a1f9202733a6880cacd95e215518bb077563d42ff80eff27fa4e
